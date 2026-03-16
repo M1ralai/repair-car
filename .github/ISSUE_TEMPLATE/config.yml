@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: RepairCar Contribution Guide
+    url: ../blob/master/CONTRIBUTING.md
+    about: Issue açmadan önce ekip çalışma düzenini ve katkı kurallarını oku.
