@@ -2,8 +2,8 @@
 
 ## Branch Strategy
 
-* `master` branch production-safe branch olarak kabul edilir.
-* Hiç kimse doğrudan `master` branch üzerine commit atmaz.
+* `main` branch production-safe branch olarak kabul edilir.
+* Hiç kimse doğrudan `main` branch üzerine commit atmaz.
 * Her geliştirme ayrı branch üzerinde yapılır.
 
 ### Branch naming convention
