@@ -16,12 +16,9 @@ Projede `src` altında ana katmanları temsil eden klasörler bulunacaktır:
 ```text
 frontend/src/
 ├── core/                  # İş mantığı ve Domain modeli (Çekirdek)
-│   ├── domain/            # Temel tipler, arayüzler ve modeller (Entities)
-│   └── application/       # Use Case'ler, Custom Hook'lar ve Servisler
-├── infrastructure/        # Dış dünya entegrasyonları, API istekleri
-│   ├── api/               # Axios vb. kütüphanelerle yapılan HTTP istekleri
-│   ├── store/             # Global durum yönetimi konfigürasyonları (Zustand, Redux)
-│   └── adapters/          # API'den gelen veriyi Domain modeline çeviren yapılar
+│   └── domain/            # Temel tipler, arayüzler ve modeller (Entities)
+├── infrastructure/        # Dış dünya yerine Mock Data Sağlayıcıları
+│   └── mockData/          # Uygulamada kullanılacak sabit / sahte veriler (Mock)
 ├── presentation/          # Kullanıcı Arayüzü (UI) Katmanı
 │   ├── components/        # Yeniden kullanılabilir, state barındırmayan genel bileşenler
 │   ├── features/          # Belirli konulara göre ayrılmış karmaşık, state barındıran yapılar
@@ -40,21 +37,20 @@ Sistemin en soyut kısmıdır. Dış dünyadan veya React'tan tamamen bağımsı
 - **Tipler / Arayüzler (Interfaces):** Uygulamadaki veri yapılarının (Örn: `Habit`, `Vehicle`, `User`) tanımı burada yapılır.
 - Sadece saf JavaScript/TypeScript kodları içerir. İçerisinde React, Axios veya başka bir kütüphane **bulunmaz**.
 
-### 2. Application Katmanı (`core/application`)
-Domain kurallarını kullanarak belirli eylemleri (Use Cases) gerçekleştiren katmandır.
-- **Hooks & Services:** React ortamı için data çekme ve yönetme süreçlerini kapsar (Örn: `useFetchHabits`, `useVehicleData`).
-- UI'ın doğrudan API katmanına gitmesini engelleyerek arada bir köprü görevi görür.
+### 2. Application Katmanı (Devre Dışı)
+Şu anki aşamada **Custom Hook'lar (data fetch eden hooklar vb.) kullanılmayacaktır**. İhtiyacımız olan tüm veriler doğrudan mock data'lar ile sağlanacaktır.
 
 ### 3. Infrastructure Katmanı (`infrastructure`)
-Dış dünya ile (Backend API, Browser API'leri, LocalStorage) iletişim kuran kısımdır.
-- **API Clients:** Backend ile HTTP bağlantıları (Axios instances, Fetch vb.).
-- Eğer API'dan dönen veri ui için uygun değilse, **Adapters** burada çalışıp veriyi domain formatına dönüştürür.
+Frontend uygulamasının ihtiyaç duyduğu verilerin kaynak noktasıdır.
+- Gerçek bir Backend API yerine **Mock Data (Sahte Veriler)** kullanılacaktır (`infrastructure/mockData`).
+- Uygulamanın her yerini dolduracak tüm listeler, detay bilgileri burada statik (sabit) olarak barınacaktır.
+- Bileşenler bu Mock dataları doğrudan import ederek kullanacaklardır.
 
 ### 4. Presentation Katmanı (`presentation` & `pages`)
-Sadece ekranın nasıl görüneceği ile ilgilenir, iş kurallarını bilmez. Gerekli veriyi hooks veya store yardımıyla çeker.
+Sadece ekranın nasıl görüneceği ile ilgilenir. Gerekli verileri doğrudan Mock Data içerisinden alır ve ekrana basar. Hook'lar üzerinden veya API requestleri ile data fetch işlemi yapılmayacaktır.
 - **Components:** Örneğin, `ai.md` içerisinde tanımlanan *Buttons, Modals, Cards* bu klasörde yer alır.
-- **Aptal Bileşenler (Dumb Components):** State tutmazlar, sadece props alarak davranırlar.
-- **Sayfalar (Pages):** Her sayfa, gereken veri akışını infrastructure veya application'dan çekip component'lara dağıtan **Akıllı (Smart)** kapsayıcılardır.
+- **Aptal Bileşenler (Dumb Components):** Sadece props alarak (mock dataları göstererek) davranırlar.
+- **Sayfalar (Pages):** İlgili ekranda gösterilecek mock dataları import edip ilgili alt component'lara aktarırlar.
 
 ---
 
