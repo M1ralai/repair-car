@@ -1,53 +1,206 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ===================================================
+   RepairCar — Global Design System (Sky & Slate)
+   =================================================== */
 
-@layer base {
-  :root {
-    /* Color System ("Sky & Slate") */
-    
-    /* Primary Colors */
-    --color-primary: #38bdf8;
-    --color-primary-hover: #0369a1; /* ~ Primary/90 */
-    --color-background: #f0f9ff;
-    --color-surface: #ffffff;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-    /* Text Colors */
-    --text-heading: #0f172a; /* Slate 900 */
-    --text-body: #475569; /* Slate 600 */
-    --text-muted: #64748b; /* Slate 500 */
-    --text-disabled: #9ca3af; /* Gray 400 */
+/* --- CSS Custom Properties (:root) --- */
+:root {
+  /* === Primary Brand Colors === */
+  --clr-primary-50:  #f0f9ff;
+  --clr-primary-100: #e0f2fe;
+  --clr-primary-200: #bae6fd;
+  --clr-primary-300: #7dd3fc;
+  --clr-primary-400: #38bdf8;
+  --clr-primary-500: #0ea5e9;
+  --clr-primary-600: #0284c7;
+  --clr-primary-700: #0369a1;
+  --clr-primary-800: #075985;
+  --clr-primary-900: #0c4a6e;
 
-    /* Status Colors */
-    --color-success: #16a34a; /* Green 600 */
-    --color-success-bg: #f0fdf4; /* Green 50 */
-    --color-warning: #f97316; /* Orange 500 */
-    --color-warning-bg: #ffedd5; /* Orange 50 */
-    --color-error: #dc2626; /* Red 600 */
-    --color-error-bg: #fef2f2; /* Red 50 */
+  /* === Slate (Neutral) === */
+  --clr-slate-50:  #f8fafc;
+  --clr-slate-100: #f1f5f9;
+  --clr-slate-200: #e2e8f0;
+  --clr-slate-300: #cbd5e1;
+  --clr-slate-400: #94a3b8;
+  --clr-slate-500: #64748b;
+  --clr-slate-600: #475569;
+  --clr-slate-700: #334155;
+  --clr-slate-800: #1e293b;
+  --clr-slate-900: #0f172a;
 
-    /* Borders & Dividers */
-    --border-default: #f1f5f9; /* Slate 100 */
-    --border-layout: #e5e7eb; /* Gray 200 */
-    --ring-focus: #3b82f6; /* Blue 500 ring */
+  /* === Semantic Aliases === */
+  --color-background:      var(--clr-primary-50);
+  --color-surface:         #ffffff;
+  --color-surface-raised:  #ffffff;
+  --color-border:          var(--clr-slate-200);
+  --color-border-subtle:   var(--clr-slate-100);
 
-    /* Shadows & Radii Tokens mapped to CSS vars if needed */
-    --radius-sm: 0.125rem;
-    --radius-md: 0.375rem;
-    --radius-lg: 0.5rem;
-    --radius-xl: 0.75rem;
-    --radius-full: 9999px;
-  }
+  --color-primary:         var(--clr-primary-500);
+  --color-primary-hover:   var(--clr-primary-600);
+  --color-primary-light:   var(--clr-primary-100);
 
-  body {
-    background-color: var(--color-background);
-    color: var(--text-body);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    line-height: normal;
-  }
+  --text-heading:   var(--clr-slate-900);
+  --text-body:      var(--clr-slate-600);
+  --text-muted:     var(--clr-slate-400);
+  --text-on-primary: #ffffff;
 
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--text-heading);
-    font-weight: 700;
-  }
+  /* === Status Colors === */
+  --color-success:     #16a34a;
+  --color-success-bg:  #f0fdf4;
+  --color-success-light: #dcfce7;
+  --color-warning:     #f97316;
+  --color-warning-bg:  #fff7ed;
+  --color-error:       #dc2626;
+  --color-error-bg:    #fef2f2;
+  --color-error-light: #fee2e2;
+  --color-acil:        #ef4444;
+
+  /* === Shadows === */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:  0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.05);
+  --shadow-lg:  0 10px 30px rgba(0,0,0,.10), 0 4px 8px rgba(0,0,0,.06);
+  --shadow-xl:  0 20px 48px rgba(0,0,0,.12);
+
+  /* === Border Radii === */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* === Spacing Scale === */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* === Typography === */
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-xs:  11px;
+  --font-size-sm:  13px;
+  --font-size-md:  15px;
+  --font-size-lg:  17px;
+  --font-size-xl:  20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+
+  /* === Layout === */
+  --max-content-width: 480px; /* mobil öncelikli, tablet'e kadar */
+  --navbar-height: 64px;
+  --bottom-bar-height: 80px;
+
+  /* === Transitions === */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  color: var(--text-body);
+  background-color: var(--color-background);
+}
+
+#root {
+  min-height: 100dvh;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+/* Mobile-first container */
+.app-container {
+  width: 100%;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, select, textarea { font-family: inherit; }
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-heading);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* --- Utility Classes --- */
+.text-center { text-align: center; }
+.text-muted   { color: var(--text-muted); }
+.text-success { color: var(--color-success); }
+.text-error   { color: var(--color-error); }
+.text-primary { color: var(--color-primary); }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- Spinning Loader (for Button states) --- */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+/* --- Pulse animation for ACIL badge --- */
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 1; }
+  70%  { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* --- Fade in animation for cards --- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in-up {
+  animation: fadeInUp var(--transition-normal) ease both;
+}
+
+/* --- Shimmer for skeleton loading --- */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
 }

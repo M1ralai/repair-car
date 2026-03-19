@@ -1,0 +1,49 @@
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.main-header {
+  height: var(--navbar-height);
+  background: var(--color-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-logo {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.header-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-link {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+.nav-link:hover, .nav-link.active {
+  opacity: 1;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  /* background color is handled by global :root body style */
+}

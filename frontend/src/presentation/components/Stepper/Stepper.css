@@ -1,0 +1,79 @@
+.stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 8px 0;
+}
+
+.step {
+  display: flex;
+  gap: 16px;
+  min-height: 60px;
+}
+
+.step-indicator-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 28px;
+}
+
+.step-indicator {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  z-index: 2;
+  transition: all var(--transition-fast);
+}
+
+.step-line {
+  width: 2px;
+  flex: 1;
+  background: var(--color-border);
+  margin-top: 4px;
+  margin-bottom: 4px;
+  transition: background var(--transition-fast);
+}
+
+.step-content {
+  padding-top: 2px;
+  padding-bottom: 24px;
+}
+
+.step-label {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color var(--transition-fast);
+}
+
+/* States */
+.step.is-completed .step-indicator {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: white;
+}
+.step.is-completed .step-line {
+  background: var(--color-success);
+}
+.step.is-completed .step-label {
+  color: var(--text-heading);
+}
+
+.step.is-current .step-indicator {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-light);
+}
+.step.is-current .step-label {
+  color: var(--color-primary);
+  font-weight: 700;
+}

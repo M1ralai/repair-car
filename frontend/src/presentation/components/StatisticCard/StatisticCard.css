@@ -1,0 +1,58 @@
+.stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.stat-icon {
+  color: var(--color-primary);
+  width: 20px;
+  height: 20px;
+}
+
+.stat-card-body {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.stat-value {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  color: var(--text-heading);
+  line-height: 1;
+}
+
+.stat-trend {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--clr-slate-100);
+  color: var(--text-muted);
+}
+.stat-trend.is-up {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+.stat-trend.is-down {
+  background: var(--color-error-bg);
+  color: var(--color-error);
+}
