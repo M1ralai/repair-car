@@ -1,0 +1,143 @@
+.request-detail {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-background);
+  min-height: 100vh;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--color-surface);
+  position: sticky;
+  top: 0; z-index: 100;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.back-btn {
+  color: var(--text-heading);
+  background: var(--clr-slate-100);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.back-btn:hover {
+  background: var(--clr-slate-200);
+}
+
+.detail-title {
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.detail-section {
+  padding: 20px;
+  background: var(--color-surface);
+  margin-top: 12px;
+  border-radius: var(--radius-lg);
+  /* Optional: removed side padding for full mobile bleed, adding side margins */
+  margin-left: 12px;
+  margin-right: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.panel-heading {
+  font-size: var(--font-size-md);
+  color: var(--color-primary-800);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.panel-heading::before {
+  content: '';
+  display: block;
+  width: 4px; height: 16px;
+  background: var(--color-primary);
+  border-radius: 4px;
+}
+
+.info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--color-border);
+}
+.info-row:last-child { border-bottom: none; }
+.info-row.col { flex-direction: column; align-items: flex-start; gap: 4px; }
+
+.info-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.info-value {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--text-heading);
+}
+
+.address-value {
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  color: var(--text-body);
+  background: var(--clr-slate-50);
+  padding: 8px; border-radius: 6px; width: 100%;
+}
+
+.plaka-badge {
+  background: #2563eb;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border-left: 12px solid #1d4ed8; /* TR plaka mavisi efekti */
+  letter-spacing: 0.05em;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.ariza-notu {
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  color: var(--text-body);
+  background: var(--color-warning-bg);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-warning);
+}
+
+.media-section {
+  margin-top: 20px;
+}
+
+.media-heading {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.timeline-container {
+  padding-left: 8px;
+}
+
+.success-hint {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-success);
+  font-weight: 600;
+}

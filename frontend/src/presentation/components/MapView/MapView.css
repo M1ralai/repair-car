@@ -1,0 +1,59 @@
+.map-view-container {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: #e2e8f0; /* slate-200, harita zemini hissiyatı */
+  position: relative;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-muted);
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.map-icon {
+  width: 32px;
+  height: 32px;
+  color: var(--color-primary);
+}
+
+.map-text {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+.map-text small {
+  font-weight: 400;
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+}
+
+.dummy-pin {
+  position: absolute;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  box-shadow: var(--shadow-md);
+}
+
+.a-pin {
+  background: var(--color-primary);
+  top: 40%; left: 30%;
+}
+
+.b-pin {
+  background: var(--color-error);
+  top: 60%; right: 30%;
+}

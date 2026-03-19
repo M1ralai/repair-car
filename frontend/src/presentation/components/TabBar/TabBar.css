@@ -1,0 +1,32 @@
+.tabbar {
+  display: flex;
+  background: var(--clr-slate-100);
+  padding: 4px;
+  border-radius: var(--radius-lg);
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabbar::-webkit-scrollbar { display: none; }
+
+.tabbar-btn {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: calc(var(--radius-lg) - 4px);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tabbar-btn:hover:not(.is-active) {
+  color: var(--text-heading);
+  background: rgba(255,255,255,0.5);
+}
+
+.tabbar-btn.is-active {
+  background: var(--color-surface);
+  color: var(--text-heading);
+  box-shadow: var(--shadow-sm);
+}

@@ -1,0 +1,35 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  position: relative;
+}
+.badge--distance { background: var(--color-primary-light); color: var(--clr-primary-700); }
+.badge--time { background: var(--clr-slate-100); color: var(--clr-slate-600); }
+.badge--status { background: var(--color-success-bg); color: var(--color-success); }
+.badge--urgent, .badge--acil {
+  background: var(--color-error-light);
+  color: var(--color-error);
+  animation: none;
+}
+
+.badge-pulse {
+  position: absolute;
+  top: -2px; right: -2px;
+  width: 8px; height: 8px;
+  background: var(--color-acil);
+  border-radius: 50%;
+}
+.badge-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: var(--color-acil);
+  border-radius: 50%;
+  opacity: 0;
+  animation: pulse-ring 1.5s ease-out infinite;
+}
