@@ -1,1 +1,0 @@
-bu Faruk tarafından yapılmış olan bir denemedir
