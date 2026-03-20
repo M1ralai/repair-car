@@ -2,68 +2,124 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button, Stepper, ImageGallery, MapView, StickyBottomBar } from '../../presentation/components';
 import { mockRequestDetails } from '../../infrastructure/mockData/mockRequestDetails';
+import {
+  getRequestRecord,
+  advanceRequestStep,
+  completeRequest,
+} from '../../infrastructure/mockData/mockRequestDb';
 import type { SessionResponseState } from '../../core/domain/types/auth';
+import type { TalepDurumu } from '../../core/domain/types/request';
 import './RequestDetailPage.css';
+
+// Adım dizinini TalepDurumu'na çeviren map'ler
+const SERVIS_STEP_DURUM: TalepDurumu[] = [
+  'kabul_edildi',
+  'yola_cikti',
+  'ulasıldı',
+  'tamamlandi',
+];
+
+const CEKICI_STEP_DURUM: TalepDurumu[] = [
+  'kabul_edildi',
+  'yola_cikti',
+  'ulasıldı',
+  'yuklendi',
+  'tamamlandi',
+];
+
+// Adım etiketleri
+const SERVIS_STEP_LABELS = [
+  'Talep Alındı',
+  'Yola Çıkıldı',
+  'Araca Ulaşıldı',
+  'İşlem Tamamlandı',
+];
+
+const CEKICI_STEP_LABELS = [
+  'Talep Alındı',
+  'Yola Çıkıldı',
+  'Araca Ulaşıldı',
+  'Araç Yüklendi',
+  'Servise Bırakıldı',
+];
+
+// Buton metinleri (bir sonraki adıma ilerlemek için)
+const SERVIS_BTN_LABELS = [
+  'Yola Çık',
+  'Araca Ulaştım',
+  'İşlemi Tamamla',
+  'İşi Bitir & Kapat',
+];
+
+const CEKICI_BTN_LABELS = [
+  'Yola Çık',
+  'Araca Ulaştım',
+  'Aracı Yükledim',
+  'Servise Bıraktım',
+  'İşi Bitir & Kapat',
+];
 
 export const RequestDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [session, setSession] = useState<SessionResponseState | null>(null);
-  
-  // Real app: fetch with ID. Mock app: direct access
+  const [stepIndex, setStepIndex] = useState(0);
+
   const detail = id ? mockRequestDetails[id] : null;
 
   useEffect(() => {
     const saved = localStorage.getItem('session');
-    if (!saved) {
-      navigate('/login');
-      return;
+    if (!saved) { navigate('/login'); return; }
+    const parsed = JSON.parse(saved) as SessionResponseState;
+    setSession(parsed);
+
+    // localStorage'dan kayıtlı adımı yükle
+    if (id) {
+      const record = getRequestRecord(id);
+      if (record) setStepIndex(record.stepIndex);
     }
-    setSession(JSON.parse(saved));
-  }, [navigate]);
+  }, [navigate, id]);
 
-  if (!detail || !session) return <div className="p-4">Yükleniyor...</div>;
+  if (!detail || !session) {
+    return <div className="loading-screen">Yükleniyor...</div>;
+  }
 
-  // Servis veya Çekici rolüne göre akış (3.0 farkı)
   const isCekici = session.role === 'cekici';
-  
-  const servisSteps = [
-    { label: 'Talep Alındı', isCompleted: true, isCurrent: false },
-    { label: 'Yola Çıkıldı', isCompleted: false, isCurrent: true },
-    { label: 'Araca Ulaşıldı', isCompleted: false, isCurrent: false },
-    { label: 'İşlem Tamamlandı', isCompleted: false, isCurrent: false }
-  ];
+  const stepLabels = isCekici ? CEKICI_STEP_LABELS : SERVIS_STEP_LABELS;
+  const stepDurumMap = isCekici ? CEKICI_STEP_DURUM : SERVIS_STEP_DURUM;
+  const btnLabels = isCekici ? CEKICI_BTN_LABELS : SERVIS_BTN_LABELS;
+  const totalSteps = stepLabels.length;
 
-  const cekiciSteps = [
-    { label: 'Talep Alındı', isCompleted: true, isCurrent: false },
-    { label: 'Yola Çıkıldı', isCompleted: false, isCurrent: true },
-    { label: 'Araca Ulaşıldı', isCompleted: false, isCurrent: false },
-    { label: 'Araç Yüklendi', isCompleted: false, isCurrent: false },
-    { label: 'Servise Bırakıldı', isCompleted: false, isCurrent: false }
-  ];
+  const isFinished = stepIndex >= totalSteps - 1;
 
-  const currentSteps = isCekici ? cekiciSteps : servisSteps;
-  const [stepIndex, setStepIndex] = useState(1);
-
-  const activeStepConfig = currentSteps.map((s, idx) => ({
-    ...s,
+  // Stepper için adım konfigürasyonu
+  const activeStepConfig = stepLabels.map((label, idx) => ({
+    label,
     isCompleted: idx < stepIndex,
-    isCurrent: idx === stepIndex
+    isCurrent: idx === stepIndex,
   }));
 
-  const isFinished = stepIndex >= currentSteps.length - 1;
-  const nextStepLabel = isFinished 
-    ? 'İşi Bitir & Kapat' 
-    : currentSteps[stepIndex + 1]?.label || 'İleri';
-
   const handleNextStatus = () => {
+    if (!id) return;
+
     if (isFinished) {
-      alert('İş başarıyla tamamlandı! Ana ekrana yönlendiriliyorsunuz.');
+      completeRequest(id, totalSteps);
       navigate('/dashboard');
     } else {
-      setStepIndex(stepIndex + 1);
+      const nextIndex = stepIndex + 1;
+      const nextDurum = stepDurumMap[nextIndex];
+      advanceRequestStep(id, nextIndex, nextDurum);
+      setStepIndex(nextIndex);
     }
   };
+
+  const currentBtnLabel = isFinished
+    ? btnLabels[btnLabels.length - 1]
+    : btnLabels[stepIndex];
+
+  // Tel ve WhatsApp linkleri
+  const telLink = `tel:${detail.musteri.telefon.replace(/\s/g, '')}`;
+  const waLink  = `https://wa.me/${detail.musteri.telefon.replace(/[^0-9]/g, '')}`;
 
   return (
     <div className="request-detail has-bottom-bar fade-in-up app-container">
@@ -74,20 +130,30 @@ export const RequestDetailPage: React.FC = () => {
           </svg>
         </button>
         <h1 className="detail-title">Talep #{detail.id.replace('talep_', '')}</h1>
+        <span className="detail-role-badge">
+          {isCekici ? '🚛 Çekici' : '🔧 Servis'}
+        </span>
       </header>
 
-      <MapView 
-        koordinat={detail.koordinat} 
-        hedefKoordinat={detail.hedefKoordinat} 
-        height="180px" 
+      <MapView
+        koordinat={detail.koordinat}
+        hedefKoordinat={detail.hedefKoordinat}
+        height="180px"
       />
 
+      {/* Müşteri & Araç Bilgileri */}
       <div className="detail-section">
         <div className="info-panel">
           <h2 className="panel-heading">Müşteri Bilgileri</h2>
           <div className="info-row">
             <span className="info-label">Ad Soyad</span>
             <span className="info-value">{detail.musteri.isim}</span>
+          </div>
+          <div className="info-row">
+            <span className="info-label">Telefon</span>
+            <span className="info-value">
+              <a href={telLink} className="info-link">{detail.musteri.telefon}</a>
+            </span>
           </div>
           <div className="info-row">
             <span className="info-label">Araç</span>
@@ -97,28 +163,42 @@ export const RequestDetailPage: React.FC = () => {
             <span className="info-label">Plaka</span>
             <span className="info-value plaka-badge">{detail.arac.plaka}</span>
           </div>
+          <div className="info-row col">
+            <span className="info-label">Konum</span>
+            <span className="info-value address-value">{detail.acikAdres}</span>
+          </div>
           {isCekici && detail.hedefAdres && (
             <div className="info-row col">
-              <span className="info-label">Hedef Servis Adresi</span>
+              <span className="info-label">Hedef Servis</span>
               <span className="info-value address-value">{detail.hedefAdres}</span>
             </div>
           )}
         </div>
 
+        {/* İletişim butonları — gerçek tel/wa linkleri */}
         <div className="action-buttons">
-          <Button variant="ghost" fullWidth>
-            WhatsApp'tan Yaz
+          <Button
+            variant="ghost"
+            fullWidth
+            onClick={() => window.open(waLink, '_blank')}
+          >
+            💬 WhatsApp'tan Yaz
           </Button>
-          <Button variant="secondary" fullWidth>
-            Hemen Ara
+          <Button
+            variant="secondary"
+            fullWidth
+            onClick={() => window.location.href = telLink}
+          >
+            📞 Hemen Ara
           </Button>
         </div>
       </div>
 
+      {/* Arıza Bildirimi */}
       <div className="detail-section">
         <h2 className="panel-heading">Arıza Bildirimi</h2>
         <p className="ariza-notu">{detail.arizaNotu}</p>
-        
+
         {detail.medyaUrls.length > 0 && (
           <div className="media-section">
             <h3 className="media-heading">Yüklenen Görseller</h3>
@@ -127,6 +207,7 @@ export const RequestDetailPage: React.FC = () => {
         )}
       </div>
 
+      {/* İşlem Durumu — Stepper */}
       <div className="detail-section">
         <h2 className="panel-heading">İşlem Durumu</h2>
         <div className="timeline-container">
@@ -134,15 +215,18 @@ export const RequestDetailPage: React.FC = () => {
         </div>
       </div>
 
+      {/* Sabit alt bar */}
       <StickyBottomBar>
-        {isFinished && <p className="success-hint">Tüm işlemler tamamlandı. İşi kapatabilirsiniz.</p>}
-        <Button 
-           size="lg" 
-           fullWidth 
-           variant={isFinished ? 'primary' : 'primary'} 
-           onClick={handleNextStatus}
+        {isFinished && (
+          <p className="success-hint">✅ Tüm işlemler tamamlandı. İşi kapatabilirsiniz.</p>
+        )}
+        <Button
+          size="lg"
+          fullWidth
+          variant="primary"
+          onClick={handleNextStatus}
         >
-          {nextStepLabel}
+          {currentBtnLabel}
         </Button>
       </StickyBottomBar>
     </div>
