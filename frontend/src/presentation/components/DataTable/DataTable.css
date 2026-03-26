@@ -1,0 +1,54 @@
+.data-table-container {
+  width: 100%;
+  overflow-x: auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.data-table th, .data-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.data-table th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.data-table td {
+  color: #334155;
+  font-size: 14px;
+}
+
+.data-table tr.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.data-table tr.clickable:hover {
+  background-color: #f1f5f9;
+}
+
+.data-table-empty {
+  text-align: center;
+  color: #94a3b8;
+  padding: 32px !important;
+}
+
+/* For HighlightLayer / isProblematic */
+.data-table tr.row-problematic {
+  background-color: #fef2f2;
+}
+.data-table tr.row-problematic:hover {
+  background-color: #fee2e2;
+}
