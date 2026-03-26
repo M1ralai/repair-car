@@ -1,0 +1,43 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge--pending,
+.status-badge--waiting,
+.status-badge--pending_review {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+
+.status-badge--approved,
+.status-badge--completed,
+.status-badge--resolved {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge--rejected,
+.status-badge--cancelled,
+.status-badge--ignored {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.status-badge--revision_requested,
+.status-badge--accepted {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.status-badge--on_the_way {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
