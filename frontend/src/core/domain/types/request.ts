@@ -1,18 +1,36 @@
-// Domain Types - Request (Kaynak: 2.3, 2.4, 3.0)
+export interface HelpRequestForm {
+  vehicleId?: string;
+  vehicleModel?: string; // used if no vehicleId
+  problemDescription: string;
+  location: {
+    address: string;
+    latitude: number;
+    longitude: number;
+  };
+  imageUrls: string[];
+  requiresTowTruck: boolean;
+  useInsurance: boolean;
+}
+
+export type RequestStatus = 'PENDING' | 'ACCEPTED' | 'ON_THE_WAY' | 'COMPLETED' | 'CANCELLED';
+
+export interface RequestTrackerStatus {
+  id: string;
+  status: RequestStatus;
+  servicePointId: string;
+  createdAt: string;
+  estimatedArrivalTime?: string;
+  mechanicName?: string;
+  mechanicPhone?: string;
+  servicePointName?: string;
+}
+
+export type TalepDurumu = 'beklemede' | 'kabul_edildi' | 'yola_cikti' | 'ulasıldı' | 'yuklendi' | 'tamamlandi' | 'reddedildi';
 
 export interface Koordinat {
   lat: number;
   lng: number;
 }
-
-export type TalepDurumu =
-  | 'beklemede'
-  | 'kabul_edildi'
-  | 'yola_cikti'
-  | 'ulasıldı'
-  | 'yuklendi'
-  | 'tamamlandi'
-  | 'reddedildi';
 
 export interface TalepListesiItem {
   id: string;
@@ -22,45 +40,26 @@ export interface TalepListesiItem {
   mesafeBirim: string;
   koordinat: Koordinat;
   aciklama: string;
-  olusturmaZamani: string; // ISO timestamp
+  olusturmaZamani: string;
   durum: TalepDurumu;
   acil: boolean;
   tip: 'servis' | 'cekici';
-  // Çekici'ye özel
   hasarVarMi?: boolean;
   hedefKoordinat?: Koordinat;
   hedefAdres?: string;
 }
 
-export interface MusteriProfil {
-  isim: string;
-  telefon: string;
-}
-
-export interface AracBilgisi {
-  marka: string;
-  model: string;
-  yil: number;
-  plaka: string;
-}
-
-export interface DurumGecmisi {
-  durum: TalepDurumu;
-  zaman: string; // ISO timestamp
-}
-
 export interface KapsamliTalepDetayi {
   id: string;
-  musteri: MusteriProfil;
-  arac: AracBilgisi;
+  musteri: { isim: string; telefon: string };
+  arac: { marka: string; model: string; yil: number; plaka: string };
   koordinat: Koordinat;
   acikAdres: string;
   arizaNotu: string;
   medyaUrls: string[];
   canliDurumIndexi: number;
-  durumZamancizgisi: DurumGecmisi[];
+  durumZamancizgisi: { durum: TalepDurumu; zaman: string }[];
   tip: 'servis' | 'cekici';
-  // Çekici'ye özel
   hedefKoordinat?: Koordinat;
   hedefAdres?: string;
 }

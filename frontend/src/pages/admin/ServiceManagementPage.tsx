@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { Star } from 'lucide-react';
 import { AdminLayout } from '../../presentation/layouts/AdminLayout/AdminLayout';
 import { AdvancedFilterBar } from '../../presentation/components/AdvancedFilterBar/AdvancedFilterBar';
 import type { FilterOptions } from '../../presentation/components/AdvancedFilterBar/AdvancedFilterBar';
@@ -40,7 +41,7 @@ export const ServiceManagementPage: React.FC = () => {
       render: (row) => (
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           {row.shopName}
-          {row.isRepairCarApproved && <span title="RepairCar Onaylı" style={{ color: '#10b981', fontSize: '16px' }}>★</span>}
+          {row.isRepairCarApproved && <span title="RepairCar Onaylı" style={{ color: '#10b981', display: 'flex' }}><Star fill="currentColor" size={16} /></span>}
         </div>
       )
     },

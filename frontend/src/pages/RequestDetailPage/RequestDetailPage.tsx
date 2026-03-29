@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Truck, Wrench, MessageCircle, Phone, CheckCircle2 } from 'lucide-react';
 import { Button, Stepper, ImageGallery, MapView, StickyBottomBar } from '../../presentation/components';
 import { mockRequestDetails } from '../../infrastructure/mockData/mockRequestDetails';
 import {
@@ -69,7 +70,7 @@ export const RequestDetailPage: React.FC = () => {
 
   useEffect(() => {
     const saved = localStorage.getItem('session');
-    if (!saved) { navigate('/login'); return; }
+    if (!saved) { navigate('/usta/login'); return; }
     const parsed = JSON.parse(saved) as SessionResponseState;
     setSession(parsed);
 
@@ -104,7 +105,7 @@ export const RequestDetailPage: React.FC = () => {
 
     if (isFinished) {
       completeRequest(id, totalSteps);
-      navigate('/dashboard');
+      navigate('/usta/dashboard');
     } else {
       const nextIndex = stepIndex + 1;
       const nextDurum = stepDurumMap[nextIndex];
@@ -124,14 +125,14 @@ export const RequestDetailPage: React.FC = () => {
   return (
     <div className="request-detail has-bottom-bar fade-in-up app-container">
       <header className="detail-header">
-        <button onClick={() => navigate('/dashboard')} className="back-btn" aria-label="Geri Dön">
+        <button onClick={() => navigate('/usta/dashboard')} className="back-btn" aria-label="Geri Dön">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="20" height="20">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
         </button>
         <h1 className="detail-title">Talep #{detail.id.replace('talep_', '')}</h1>
-        <span className="detail-role-badge">
-          {isCekici ? '🚛 Çekici' : '🔧 Servis'}
+        <span className="detail-role-badge flex items-center">
+          {isCekici ? <><Truck className="w-4 h-4 mr-1" /> Çekici</> : <><Wrench className="w-4 h-4 mr-1" /> Servis</>}
         </span>
       </header>
 
@@ -182,14 +183,14 @@ export const RequestDetailPage: React.FC = () => {
             fullWidth
             onClick={() => window.open(waLink, '_blank')}
           >
-            💬 WhatsApp'tan Yaz
+            <span className="flex items-center justify-center"><MessageCircle className="w-5 h-5 mr-2" /> WhatsApp'tan Yaz</span>
           </Button>
           <Button
             variant="secondary"
             fullWidth
             onClick={() => window.location.href = telLink}
           >
-            📞 Hemen Ara
+            <span className="flex items-center justify-center"><Phone className="w-5 h-5 mr-2" /> Hemen Ara</span>
           </Button>
         </div>
       </div>
@@ -218,7 +219,7 @@ export const RequestDetailPage: React.FC = () => {
       {/* Sabit alt bar */}
       <StickyBottomBar>
         {isFinished && (
-          <p className="success-hint">✅ Tüm işlemler tamamlandı. İşi kapatabilirsiniz.</p>
+          <p className="success-hint flex items-center justify-center"><CheckCircle2 className="w-5 h-5 mr-2 text-emerald-500" /> Tüm işlemler tamamlandı. İşi kapatabilirsiniz.</p>
         )}
         <Button
           size="lg"
