@@ -24,13 +24,13 @@ export const LoginPage: React.FC = () => {
         password === mockValidCredentials.servis.password
       ) {
         localStorage.setItem('session', JSON.stringify(mockServisSession));
-        navigate('/dashboard');
+        navigate('/usta/dashboard');
       } else if (
         emailOrPhone === mockValidCredentials.cekici.emailOrPhone &&
         password === mockValidCredentials.cekici.password
       ) {
         localStorage.setItem('session', JSON.stringify(mockCekiciSession));
-        navigate('/dashboard');
+        navigate('/usta/dashboard');
       } else {
         setError('E-posta veya şifre hatalı!');
       }
@@ -74,7 +74,7 @@ export const LoginPage: React.FC = () => {
 
         <div className="login-footer">
           <p>Sistemde henüz kaydınız yok mu?</p>
-          <Link to="/basvuru" className="login-link">Hemen Başvuru Yapın</Link>
+          <Link to="/usta/basvuru" className="login-link">Hemen Başvuru Yapın</Link>
         </div>
         
         {/* Helper for demo */}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Hand, MapPin, Wrench, ShieldAlert, Calculator } from 'lucide-react';
 import { mockUser } from '../../infrastructure/mockData/mockUserAuth';
 
 export const HomePage: React.FC = () => {
@@ -9,7 +10,7 @@ export const HomePage: React.FC = () => {
     <div className="p-6">
       <header className="flex justify-between items-center mb-8 pt-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Merhaba, {mockUser.fullName.split(' ')[0]} 👋</h1>
+          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">Merhaba, {mockUser.fullName.split(' ')[0]} <Hand className="w-6 h-6 text-amber-400 fill-current" /></h1>
           <p className="text-slate-500 text-sm">Nasıl yardımcı olabiliriz?</p>
         </div>
         <img src={mockUser.avatarUrl} alt="Profil" className="w-12 h-12 rounded-full border-2 border-slate-200 shadow-sm" />
@@ -21,7 +22,7 @@ export const HomePage: React.FC = () => {
           <p className="text-sky-700 text-sm">Mevcut konumunuz: Beşiktaş, İstanbul</p>
         </div>
         <div className="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center text-xl shadow-sm border border-sky-200">
-          📍
+          <MapPin className="w-6 h-6 text-sky-600" />
         </div>
       </section>
 
@@ -30,7 +31,7 @@ export const HomePage: React.FC = () => {
           onClick={() => navigate('/category-selection')}
           className="bg-sky-500 hover:bg-sky-600 text-white p-6 rounded-xl flex flex-col items-center justify-center shadow-sm transition-transform active:scale-95"
         >
-          <span className="text-3xl mb-2">🛠️</span>
+          <Wrench className="w-8 h-8 mb-2" />
           <span className="font-semibold text-center">Arıza & Bakım</span>
         </button>
         
@@ -38,7 +39,7 @@ export const HomePage: React.FC = () => {
           onClick={() => navigate('/sos-guide')}
           className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 p-6 rounded-xl flex flex-col items-center justify-center shadow-sm transition-transform active:scale-95"
         >
-          <span className="text-3xl mb-2">🆘</span>
+          <ShieldAlert className="w-8 h-8 mb-2 text-red-500" />
           <span className="font-semibold text-center">Acil Durum</span>
         </button>
 
@@ -46,7 +47,7 @@ export const HomePage: React.FC = () => {
           onClick={() => navigate('/price-estimator')}
           className="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 p-6 rounded-xl flex flex-col items-center justify-center shadow-sm transition-transform active:scale-95"
         >
-          <span className="text-3xl mb-2">💰</span>
+          <Calculator className="w-8 h-8 mb-2 text-emerald-500" />
           <span className="font-semibold text-center mt-2">Fiyat Hesapla</span>
         </button>
       </section>

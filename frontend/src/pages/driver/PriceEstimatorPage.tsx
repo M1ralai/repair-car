@@ -1,4 +1,5 @@
 import React from 'react';
+import { Receipt } from 'lucide-react';
 import { mockPriceCatalog } from '../../infrastructure/mockData/mockPremiumData';
 
 export const PriceEstimatorPage: React.FC = () => {
@@ -36,7 +37,7 @@ export const PriceEstimatorPage: React.FC = () => {
       
       <div className="mt-8">
         <button className="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-4 rounded-xl shadow-md transition-colors text-sm flex items-center justify-center gap-2">
-          <span>🧾</span> Özel Teklif Al
+          <Receipt className="w-5 h-5" /> Özel Teklif Al
         </button>
       </div>
     </div>

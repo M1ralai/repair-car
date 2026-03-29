@@ -1,4 +1,5 @@
 import React from 'react';
+import { Star } from 'lucide-react';
 import { mockServiceHistory } from '../../infrastructure/mockData/mockPremiumData';
 
 export const ServiceHistoryPage: React.FC = () => {
@@ -29,8 +30,11 @@ export const ServiceHistoryPage: React.FC = () => {
             <p className="text-slate-600 text-sm mb-3 line-clamp-2">{history.problemSummary}</p>
             
             {history.ratingGiven && (
-              <div className="text-yellow-400 text-xs">
-                {'⭐'.repeat(history.ratingGiven)} <span className="text-slate-400 ml-1">Puanınız</span>
+              <div className="flex items-center text-amber-400 gap-0.5 text-xs">
+                {Array.from({ length: history.ratingGiven }).map((_, i) => (
+                  <Star key={i} className="w-3 h-3 fill-current" />
+                ))}
+                <span className="text-slate-400 ml-1">Puanınız</span>
               </div>
             )}
             

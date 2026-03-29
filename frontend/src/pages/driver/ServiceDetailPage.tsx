@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { ArrowLeft, Heart, Star } from 'lucide-react';
 import { mockServiceDetails, mockServiceReviews } from '../../infrastructure/mockData/mockServiceDetails';
 
 export const ServiceDetailPage: React.FC = () => {
@@ -15,7 +16,7 @@ export const ServiceDetailPage: React.FC = () => {
           onClick={() => navigate(-1)} 
           className="absolute top-4 left-4 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center shadow-md backdrop-blur-sm z-10"
         >
-          <span className="text-xl">←</span>
+          <ArrowLeft className="w-6 h-6 text-slate-800" />
         </button>
         {service.imageUrl && (
           <img src={service.imageUrl} alt={service.name} className="w-full h-full object-cover" />
@@ -25,14 +26,14 @@ export const ServiceDetailPage: React.FC = () => {
       <div className="relative -mt-6 bg-slate-50 rounded-t-3xl px-6 pt-8">
         <div className="flex justify-between items-start mb-4">
           <h1 className="text-2xl font-bold text-slate-900">{service.name}</h1>
-          <button className="text-2xl hover:text-red-500 scale-110 shadow-sm bg-white p-2 rounded-full leading-none mt-2">
-            🤍
+          <button className="text-2xl hover:text-red-500 scale-110 shadow-sm bg-white p-2 rounded-full leading-none mt-2 flex items-center justify-center">
+            <Heart className="w-6 h-6 text-slate-400 hover:text-red-500 hover:fill-red-500 transition-colors" />
           </button>
         </div>
 
         <div className="flex items-center gap-2 mb-6">
           <span className="bg-yellow-100 text-yellow-700 font-bold px-2 py-1 rounded text-sm flex items-center gap-1">
-            ⭐ {service.rating}
+            <Star className="w-4 h-4 text-amber-500 fill-current" /> {service.rating}
           </span>
           <span className="text-slate-500 text-sm">({service.reviewCount} Değerlendirme)</span>
           <span className="text-slate-300">•</span>
@@ -65,8 +66,10 @@ export const ServiceDetailPage: React.FC = () => {
                   <span className="font-medium text-slate-800 text-sm">{review.userName}</span>
                   <span className="text-xs text-slate-400">{new Date(review.createdAt).toLocaleDateString()}</span>
                 </div>
-                <div className="text-yellow-500 text-xs mb-2">
-                  {'⭐'.repeat(review.rating)}
+                <div className="flex gap-0.5 text-amber-400 mb-2">
+                  {Array.from({ length: review.rating }).map((_, i) => (
+                    <Star key={i} className="w-3 h-3 fill-current" />
+                  ))}
                 </div>
                 <p className="text-slate-600 text-sm">{review.comment}</p>
               </div>

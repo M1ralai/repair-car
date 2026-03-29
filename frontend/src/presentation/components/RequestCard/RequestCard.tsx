@@ -15,7 +15,7 @@ interface RequestCardProps {
   onKabulEt?: (id: string) => void;
   onReddet?: (id: string) => void;
   // Aktif / Geçmiş sekmelerde durum etiketi
-  durumLabel?: string;
+  durumLabel?: React.ReactNode;
   // Aktif / Geçmiş sekmesinde kart tıklanınca detay sayfasına gitmek için
   onCardClick?: (id: string) => void;
 }

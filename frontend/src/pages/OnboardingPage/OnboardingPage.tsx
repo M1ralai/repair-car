@@ -73,7 +73,7 @@ export const OnboardingPage: React.FC = () => {
     setTimeout(() => {
       setIsLoading(false);
       alert('Başvurunuz başarıyla alındı. Onay bekliyor.');
-      navigate('/login');
+      navigate('/usta/login');
     }, 1500);
   };
 

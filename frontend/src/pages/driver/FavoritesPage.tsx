@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Heart, Building2, Star } from 'lucide-react';
 import { mockFavorites } from '../../infrastructure/mockData/mockPremiumData';
 import { mockServiceList } from '../../infrastructure/mockData/mockServiceList';
 
@@ -26,15 +27,14 @@ export const FavoritesPage: React.FC = () => {
             onClick={() => navigate(`/service-detail/${service.id}`)}
             className="bg-white p-5 rounded-xl border border-slate-100 shadow-sm flex items-center gap-4 cursor-pointer hover:shadow-md transition-shadow relative overflow-hidden"
           >
-            {/* Red Heart Indicator */}
-            <div className="absolute top-3 right-3 text-red-500 text-xl drop-shadow-sm">
-              ❤️
+            <div className="absolute top-3 right-3 drop-shadow-sm">
+              <Heart className="w-5 h-5 text-red-500 fill-current" />
             </div>
 
             {service.imageUrl ? (
               <img src={service.imageUrl} alt={service.name} className="w-16 h-16 rounded-lg object-cover bg-slate-100" />
             ) : (
-              <div className="w-16 h-16 bg-slate-200 rounded-lg flex items-center justify-center text-slate-400 text-xl">🏩</div>
+              <div className="w-16 h-16 bg-slate-200 rounded-lg flex items-center justify-center text-slate-400 text-xl"><Building2 className="w-8 h-8" /></div>
             )}
             
             <div className="flex-1 pr-6">
@@ -42,7 +42,7 @@ export const FavoritesPage: React.FC = () => {
               <p className="text-xs text-slate-500 line-clamp-1 mt-1">{service.address}</p>
               
               <div className="flex items-center text-sm text-slate-500 mt-2 gap-2">
-                <span className="font-bold text-slate-700">⭐ {service.rating}</span>
+                <span className="font-bold text-slate-700 flex items-center gap-1"><Star className="w-4 h-4 text-amber-500 fill-current" /> {service.rating}</span>
                 <span className="text-slate-300">•</span>
                 <span className="bg-sky-50 text-sky-600 px-2 rounded-full text-xs font-semibold">{service.distance} km</span>
               </div>

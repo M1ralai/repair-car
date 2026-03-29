@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ArrowLeft, Building2, Star, CheckCircle2 } from 'lucide-react';
 import { mockServiceList } from '../../infrastructure/mockData/mockServiceList';
 
 export const ServiceListPage: React.FC = () => {
@@ -9,7 +10,7 @@ export const ServiceListPage: React.FC = () => {
     <div className="bg-slate-50 min-h-screen pb-6">
       <div className="bg-white p-6 shadow-sm border-b border-slate-100 flex items-center gap-3">
         <button onClick={() => navigate(-1)} className="text-slate-500 hover:text-slate-800 p-1 -ml-2">
-          <span className="text-xl">←</span>
+          <ArrowLeft className="w-5 h-5 text-slate-800" />
         </button>
         <div>
           <h1 className="text-lg font-bold text-slate-900">Yakındaki Servisler</h1>
@@ -28,7 +29,7 @@ export const ServiceListPage: React.FC = () => {
               {service.imageUrl ? (
                 <img src={service.imageUrl} alt={service.name} className="w-20 h-20 rounded-lg object-cover bg-slate-100" />
               ) : (
-                <div className="w-20 h-20 bg-slate-200 rounded-lg flex items-center justify-center text-slate-400 text-2xl">🏪</div>
+                <div className="w-20 h-20 bg-slate-200 rounded-lg flex items-center justify-center text-slate-400 text-2xl"><Building2 className="w-8 h-8 text-slate-400" /></div>
               )}
               
               <div className="flex-1">
@@ -39,8 +40,8 @@ export const ServiceListPage: React.FC = () => {
                   </span>
                 </div>
                 
-                <div className="flex items-center text-sm text-slate-500 mt-1">
-                  ⭐ {service.rating} ({service.reviewCount} Yorum)
+                <div className="flex items-center gap-1 text-sm text-slate-500 mt-1">
+                  <Star className="w-4 h-4 text-amber-500 fill-current" /> {service.rating} ({service.reviewCount} Yorum)
                 </div>
                 
                 <div className="flex flex-wrap gap-1 mt-2">
@@ -55,7 +56,7 @@ export const ServiceListPage: React.FC = () => {
 
             {service.isVerified && (
               <div className="bg-green-50 text-green-700 text-xs py-1.5 px-3 rounded-md flex items-center gap-1">
-                <span className="font-bold">✓</span> Onaylı RepairCar Noktası
+                <CheckCircle2 className="w-4 h-4 mr-1 text-emerald-600" /> Onaylı RepairCar Noktası
               </div>
             )}
           </div>

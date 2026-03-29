@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Star } from 'lucide-react';
 import { 
   TabBar, 
   StatisticCard, 
@@ -21,7 +22,7 @@ export const ProfilePage: React.FC = () => {
   useEffect(() => {
     const saved = localStorage.getItem('session');
     if (!saved) {
-      navigate('/login');
+      navigate('/usta/login');
       return;
     }
     const parsed = JSON.parse(saved) as SessionResponseState;
@@ -37,7 +38,7 @@ export const ProfilePage: React.FC = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('session');
-    navigate('/login');
+    navigate('/usta/login');
   };
 
   return (
@@ -106,7 +107,7 @@ export const ProfilePage: React.FC = () => {
               <StatisticCard 
                 label="Memnuniyet Skoru" 
                 value={profilVerisi.performans.ortalamaMemnuniyetPuani.toFixed(1)} 
-                icon={<span>⭐</span>}
+                icon={<Star className="w-5 h-5 text-amber-500 fill-amber-500" />}
               />
               <StatisticCard 
                 label="Reddetme Oranı" 

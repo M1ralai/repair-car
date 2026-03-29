@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Wrench } from 'lucide-react';
 
 export const UserLoginPage: React.FC = () => {
   const navigate = useNavigate();
@@ -39,9 +40,19 @@ export const UserLoginPage: React.FC = () => {
           </button>
         </form>
 
-        <div className="mt-6 text-center">
+        <div className="mt-6 flex flex-col items-center gap-4">
           <button onClick={() => navigate('/home')} className="text-sm text-sky-500 hover:underline">
             Misafir Olarak Devam Et
+          </button>
+          
+          <div className="w-full h-px bg-slate-100 my-1"></div>
+          
+          <button 
+            onClick={() => navigate('/usta/login')} 
+            type="button"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-slate-600 bg-slate-50 border border-slate-200 rounded-lg hover:bg-slate-100 hover:text-slate-800 transition-all active:scale-[0.98]"
+          >
+            <Wrench className="w-4 h-4 text-slate-500" /> Servis / Usta Girişi
           </button>
         </div>
       </div>

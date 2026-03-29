@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ShieldAlert, TriangleAlert, Ambulance, Siren, ChevronDown } from 'lucide-react';
 import { mockEmergencyGuides } from '../../infrastructure/mockData/mockPremiumData';
 
 export const EmergencyGuidePage: React.FC = () => {
@@ -26,8 +27,8 @@ export const EmergencyGuidePage: React.FC = () => {
               onClick={() => toggleAccordion(guide.id)}
               className="w-full text-left p-4 font-semibold text-slate-800 hover:bg-slate-50 flex justify-between items-center"
             >
-              <span>{guide.category === 'ACCIDENT' ? '🚔 ' : '⚠️ '}{guide.title}</span>
-              <span className={`text-slate-400 transition-transform ${openId === guide.id ? 'rotate-180' : ''}`}>▼</span>
+              <span className="flex items-center">{guide.category === 'ACCIDENT' ? <ShieldAlert className="w-5 h-5 mr-2 text-red-500" /> : <TriangleAlert className="w-5 h-5 mr-2 text-amber-500" />}{guide.title}</span>
+              <span className={`text-slate-400 transition-transform ${openId === guide.id ? 'rotate-180' : ''}`}><ChevronDown className="w-4 h-4" /></span>
             </button>
             
             {openId === guide.id && (
@@ -44,11 +45,11 @@ export const EmergencyGuidePage: React.FC = () => {
         <h2 className="font-bold text-slate-800 mb-3 text-sm px-1">Acil Numaralar</h2>
         <div className="grid grid-cols-2 gap-3">
           <a href="tel:112" className="bg-red-500 hover:bg-red-600 text-white p-4 rounded-xl font-bold text-center shadow-sm flex flex-col items-center gap-1 active:scale-95 transition-transform">
-            <span className="text-xl">🚑</span>
+            <Ambulance className="w-6 h-6 mb-1" />
             112 Acil
           </a>
           <a href="tel:155" className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-xl font-bold text-center shadow-sm flex flex-col items-center gap-1 active:scale-95 transition-transform">
-            <span className="text-xl">🚓</span>
+            <Siren className="w-6 h-6 mb-1" />
             155 Polis
           </a>
         </div>

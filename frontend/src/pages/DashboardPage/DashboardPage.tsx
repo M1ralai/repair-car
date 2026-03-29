@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CheckCircle2, XCircle, CheckCircle, Car, MapPin, Link, Inbox, Wrench, ClipboardList, Moon } from 'lucide-react';
 import { ToggleSwitch, RequestCard, TabBar } from '../../presentation/components';
 import { mockRequests } from '../../infrastructure/mockData/mockRequests';
 import {
@@ -18,19 +19,19 @@ const TAB_DURUM_MAP: Record<string, TalepDurumu[]> = {
   gecmis: ['tamamlandi', 'reddedildi'],
 };
 
-const DURUM_LABEL: Partial<Record<TalepDurumu, string>> = {
-  tamamlandi:   '✅ Tamamlandı',
-  reddedildi:   '❌ Reddedildi',
-  kabul_edildi: '🟡 Kabul Edildi',
-  yola_cikti:   '🚗 Yola Çıkıldı',
-  ulasıldı:     '📍 Araçta',
-  yuklendi:     '⛓️ Yüklendi',
+const DURUM_LABEL: Partial<Record<TalepDurumu, React.ReactNode>> = {
+  tamamlandi:   <span className="flex items-center gap-1"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Tamamlandı</span>,
+  reddedildi:   <span className="flex items-center gap-1"><XCircle className="w-4 h-4 text-red-500" /> Reddedildi</span>,
+  kabul_edildi: <span className="flex items-center gap-1"><CheckCircle className="w-4 h-4 text-yellow-500" /> Kabul Edildi</span>,
+  yola_cikti:   <span className="flex items-center gap-1"><Car className="w-4 h-4 text-blue-500" /> Yola Çıkıldı</span>,
+  ulasıldı:     <span className="flex items-center gap-1"><MapPin className="w-4 h-4 text-indigo-500" /> Araçta</span>,
+  yuklendi:     <span className="flex items-center gap-1"><Link className="w-4 h-4 text-purple-500" /> Yüklendi</span>,
 };
 
-const EMPTY: Record<string, { icon: string; title: string; sub: string }> = {
-  yeni:   { icon: '📭', title: 'Şu an için yeni talep bulunmuyor', sub: 'Bölgenden sinyal geldiğinde anında haber vereceğiz.' },
-  aktif:  { icon: '🔧', title: 'Şu an aktif işin yok',            sub: 'Yeni talepler sekmesinden iş kabul edebilirsin.' },
-  gecmis: { icon: '📋', title: 'Henüz tamamlanan iş yok',         sub: 'Kabul ettiğin işler bittikten sonra burada görünecek.' },
+const EMPTY: Record<string, { icon: React.ReactNode; title: string; sub: string }> = {
+  yeni:   { icon: <Inbox className="w-12 h-12" />, title: 'Şu an için yeni talep bulunmuyor', sub: 'Bölgenden sinyal geldiğinde anında haber vereceğiz.' },
+  aktif:  { icon: <Wrench className="w-12 h-12" />, title: 'Şu an aktif işin yok',            sub: 'Yeni talepler sekmesinden iş kabul edebilirsin.' },
+  gecmis: { icon: <ClipboardList className="w-12 h-12" />, title: 'Henüz tamamlanan iş yok',         sub: 'Kabul ettiğin işler bittikten sonra burada görünecek.' },
 };
 
 export const DashboardPage: React.FC = () => {
@@ -54,7 +55,7 @@ export const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     const saved = localStorage.getItem('session');
-    if (!saved) { navigate('/login'); return; }
+    if (!saved) { navigate('/usta/login'); return; }
     const parsed = JSON.parse(saved) as SessionResponseState;
     setSession(parsed);
     loadRequests(parsed.role);
@@ -89,7 +90,7 @@ export const DashboardPage: React.FC = () => {
   // Yeni sekmesi: kabul et → DB'ye yaz → detaya git
   const handleKabul = (id: string) => {
     acceptRequest(id);
-    navigate(`/talep-detay/${id}`);
+    navigate(`/usta/talep-detay/${id}`);
   };
 
   // Yeni sekmesi: reddet → DB'ye yaz → listeden çıkar
@@ -102,7 +103,7 @@ export const DashboardPage: React.FC = () => {
 
   // Aktif / Geçmiş kart tıklama → detay sayfasına git
   const handleCardClick = (id: string) => {
-    navigate(`/talep-detay/${id}`);
+    navigate(`/usta/talep-detay/${id}`);
   };
 
   return (
@@ -156,7 +157,7 @@ export const DashboardPage: React.FC = () => {
         </div>
       ) : (
         <div className="empty-state is-offline">
-          <span className="empty-state-icon">😴</span>
+          <span className="empty-state-icon flex justify-center text-slate-400 mb-4"><Moon className="w-12 h-12" /></span>
           <h3>Çevrimdışı Mod</h3>
           <p>Şu anda kapalı konumdasınız ve yeni iş talebi almayacaksınız.</p>
         </div>

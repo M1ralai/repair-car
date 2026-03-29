@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Star, Check } from 'lucide-react';
 
 export const AddReviewPage: React.FC = () => {
   const navigate = useNavigate();
@@ -13,8 +14,8 @@ export const AddReviewPage: React.FC = () => {
   return (
     <div className="bg-slate-50 min-h-screen py-8 px-6">
       <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center max-w-sm mx-auto">
-        <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
-          ✓
+        <div className="w-16 h-16 bg-green-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Check className="w-8 h-8" />
         </div>
         <h1 className="text-xl font-bold text-slate-900 mb-2">Hizmet Tamamlandı</h1>
         <p className="text-slate-500 text-sm mb-8">
@@ -28,9 +29,9 @@ export const AddReviewPage: React.FC = () => {
                 key={star}
                 type="button"
                 onClick={() => setRating(star)}
-                className={`text-4xl transition-transform hover:scale-110 ${star <= rating ? 'text-yellow-400' : 'text-slate-200'}`}
+                className={`transition-transform hover:scale-110 ${star <= rating ? 'text-amber-400' : 'text-slate-200'}`}
               >
-                ★
+                <Star className={`w-10 h-10 ${star <= rating ? 'fill-current' : ''}`} />
               </button>
             ))}
           </div>

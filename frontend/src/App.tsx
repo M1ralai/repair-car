@@ -25,10 +25,19 @@ import { ServiceHistoryPage } from './pages/driver/ServiceHistoryPage';
 import { FavoritesPage } from './pages/driver/FavoritesPage';
 import { EmergencyGuidePage } from './pages/driver/EmergencyGuidePage';
 import { PriceEstimatorPage } from './pages/driver/PriceEstimatorPage';
+import { PaymentPage } from './pages/driver/PaymentPage';
+// Service Provider App (Section 2/3)
+import { LoginPage as ProviderLoginPage } from './pages/LoginPage/LoginPage';
+import { DashboardPage as ProviderDashboardPage } from './pages/DashboardPage/DashboardPage';
+import { RequestDetailPage } from './pages/RequestDetailPage/RequestDetailPage';
+import { OnboardingPage } from './pages/OnboardingPage/OnboardingPage';
+import { ProfilePage } from './pages/ProfilePage/ProfilePage';
+import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
+      <Toaster position="top-right" toastOptions={{ duration: 4000 }} />
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         
@@ -40,6 +49,7 @@ const App: React.FC = () => {
         <Route path="/service-detail/:id" element={<ServiceDetailPage />} />
         <Route path="/create-request" element={<CreateRequestPage />} />
         <Route path="/request-tracking/:reqId" element={<RequestTrackingPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
         <Route path="/add-review" element={<AddReviewPage />} />
 
         {/* Screens with Bottom Navigation */}
@@ -51,6 +61,14 @@ const App: React.FC = () => {
           <Route path="/sos-guide" element={<EmergencyGuidePage />} />
           <Route path="/price-estimator" element={<PriceEstimatorPage />} />
         </Route>
+
+        {/* === SECTION 2/3: SERVICE PROVIDER ROUTES === */}
+        <Route path="/usta" element={<Navigate to="/usta/login" replace />} />
+        <Route path="/usta/login" element={<ProviderLoginPage />} />
+        <Route path="/usta/dashboard" element={<ProviderDashboardPage />} />
+        <Route path="/usta/talep-detay/:id" element={<RequestDetailPage />} />
+        <Route path="/usta/basvuru" element={<OnboardingPage />} />
+        <Route path="/usta/profil" element={<ProfilePage />} />
 
         {/* === SECTION 4: ADMIN ROUTES === */}
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
@@ -71,3 +89,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+
